@@ -35,7 +35,7 @@ public class ArgosClientImpl implements ArgosClient {
 
   public DataTableData<ArgosDMPListing> listPlans(TableRequest request) throws MalformedURLException, URISyntaxException {
     return restTemplate.exchange(
-        this.apiUrlBase + "/public/dmps?fieldsGroup=listing",
+        this.apiUrlBase + "/dmps?fieldsGroup=listing",
         HttpMethod.POST,
         new HttpEntity<>(request, getHttpHeaders()),
         new ParameterizedTypeReference<ResponseItem<DataTableData<ArgosDMPListing>>>() {}
@@ -44,7 +44,7 @@ public class ArgosClientImpl implements ArgosClient {
 
   public ArgosDMP getPlanById(String id) throws MalformedURLException, URISyntaxException {
     return restTemplate.exchange(
-        this.apiUrlBase + "/public/dmps/" + id,
+        this.apiUrlBase + "/dmps/" + id,
         HttpMethod.GET,
         new HttpEntity<>(getHttpHeaders()),
         new ParameterizedTypeReference<ResponseItem<ArgosDMP>>() {}
