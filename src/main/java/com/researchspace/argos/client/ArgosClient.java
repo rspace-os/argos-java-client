@@ -13,5 +13,5 @@ import java.net.URISyntaxException;
  */
 public interface ArgosClient {
   DataTableData<ArgosDMPListing> listPlans(TableRequest request) throws MalformedURLException, URISyntaxException;
-  ArgosDMP getPlanById(String id);
+  ArgosDMP getPlanById(String id) throws MalformedURLException, URISyntaxException;
 }

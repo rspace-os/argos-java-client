@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import com.researchspace.argos.model.DataTableData;
 import com.researchspace.argos.client.ArgosClient;
 import com.researchspace.argos.model.ArgosDMPListing;
+import com.researchspace.argos.model.ArgosDMP;
 import com.researchspace.argos.model.TableRequest;
 import com.researchspace.argos.model.Criteria;
 import org.junit.jupiter.api.AfterEach;
@@ -55,4 +56,17 @@ class ArgosClientTest {
 				}
     }
 
+		@Test
+		public void getPlanByIdTest() {
+				mockServer.expect(requestTo(containsString("public/dmps")))
+					.andExpect(method(HttpMethod.GET))
+								.andRespond(withSuccess("{\"payload\": { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": { \"id\": \"foo\", \"label\": \"00332/EI\" }, \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } }", MediaType.APPLICATION_JSON));
+				try {
+					ArgosDMP plan = argosClientImpl.getPlanById("78f64f2d-8686-4dad-8d97-cb7763dbba27");
+					assertEquals(plan.label, "Dmp For Project : 00332/EI");
+					assertEquals(plan.grant.label, "00332/EI");
+				} catch (MalformedURLException | URISyntaxException e) {
+					fail("argosClient.getPlanById threw an exception.");
+				}
+		}
 }

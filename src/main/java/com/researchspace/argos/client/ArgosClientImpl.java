@@ -42,8 +42,13 @@ public class ArgosClientImpl implements ArgosClient {
     ).getBody().getPayload();
   }
 
-  public ArgosDMP getPlanById(String id) {
-    throw new UnsupportedOperationException("Not yet implemented");
+  public ArgosDMP getPlanById(String id) throws MalformedURLException, URISyntaxException {
+    return restTemplate.exchange(
+        this.apiUrlBase + "/public/dmps/" + id,
+        HttpMethod.GET,
+        new HttpEntity<>(getHttpHeaders()),
+        new ParameterizedTypeReference<ResponseItem<ArgosDMP>>() {}
+    ).getBody().getPayload();
   }
 
   private HttpHeaders getHttpHeaders() {
