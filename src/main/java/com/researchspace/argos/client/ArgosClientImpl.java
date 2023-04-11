@@ -6,11 +6,19 @@ import lombok.Data;
 import com.researchspace.argos.model.DataTableData;
 import com.researchspace.argos.model.ArgosDMPListing;
 import com.researchspace.argos.model.ArgosDMP;
+import com.researchspace.argos.model.TableRequest;
+import com.researchspace.argos.model.ResponseItem;
 import java.io.IOException;
 import java.lang.UnsupportedOperationException;
 import org.springframework.web.client.RestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import java.net.URL;
+import org.springframework.http.HttpHeaders;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 
 @Getter
 @Setter
@@ -25,11 +33,23 @@ public class ArgosClientImpl implements ArgosClient {
       this.restTemplate = new RestTemplate();
   }
 
-  public DataTableData<ArgosDMPListing> listPlans() {
-    throw new UnsupportedOperationException("Not yet implemented");
+  public DataTableData<ArgosDMPListing> listPlans(TableRequest request) throws MalformedURLException, URISyntaxException {
+    return restTemplate.exchange(
+        this.apiUrlBase + "/public/dmps?fieldsGroup=listing",
+        HttpMethod.POST,
+        new HttpEntity<>(request, getHttpHeaders()),
+        new ParameterizedTypeReference<ResponseItem<DataTableData<ArgosDMPListing>>>() {}
+    ).getBody().getPayload();
   }
 
   public ArgosDMP getPlanById(String id) {
     throw new UnsupportedOperationException("Not yet implemented");
   }
+
+  private HttpHeaders getHttpHeaders() {
+      HttpHeaders headers = new HttpHeaders();
+      headers.add("Content-Type", "application/json");
+      return headers;
+  }
+
 }

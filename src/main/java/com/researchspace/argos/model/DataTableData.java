@@ -11,4 +11,8 @@ import java.util.List;
 public class DataTableData<T> {
   private List<T> data;
   private Integer totalCount;
+
+  public List<T> getData() {
+    return this.data;
+  }
 }
