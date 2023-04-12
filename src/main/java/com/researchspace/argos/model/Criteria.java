@@ -9,8 +9,8 @@ import lombok.AllArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @AllArgsConstructor
 public class Criteria {
-  private String like;
-  private List<String> grantsLike;
-  private List<String> fundersLike;
-  private List<String> collaboratorsLike;
+	private String like;
+	private List<String> grantsLike;
+	private List<String> fundersLike;
+	private List<String> collaboratorsLike;
 }

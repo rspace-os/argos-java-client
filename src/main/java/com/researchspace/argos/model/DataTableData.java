@@ -9,10 +9,10 @@ import java.util.List;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataTableData<T> {
-  private List<T> data;
-  private Integer totalCount;
+	private List<T> data;
+	private Integer totalCount;
 
-  public List<T> getData() {
-    return this.data;
-  }
+	public List<T> getData() {
+		return this.data;
+	}
 }

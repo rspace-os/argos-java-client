@@ -14,7 +14,7 @@ public class ArgosDMP {
 	public String id;
 	public String label;
 	public ApiDMPGrant grant;
-  public List<ApiDMPDoi> dois;
+	public List<ApiDMPDoi> dois;
 
 	@Data
 	@NoArgsConstructor
@@ -24,17 +24,17 @@ public class ArgosDMP {
 		public String label;
 	}
 
-  @Data
-  @NoArgsConstructor
-  @JsonIgnoreProperties(ignoreUnknown = true)
-  public static class ApiDMPDoi {
-    public String doi;
-    public String repositoryId;
-  }
+	@Data
+	@NoArgsConstructor
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static class ApiDMPDoi {
+		public String doi;
+		public String repositoryId;
+	}
 
-  public Optional<String> getDoi() {
-    if (dois.isEmpty()) return Optional.empty();
-    return Optional.of(dois.get(0).doi);
-  }
+	public Optional<String> getDoi() {
+		if (dois.isEmpty()) return Optional.empty();
+		return Optional.of(dois.get(0).doi);
+	}
 
 }

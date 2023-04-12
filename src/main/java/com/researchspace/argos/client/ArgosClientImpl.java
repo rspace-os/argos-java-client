@@ -25,36 +25,36 @@ import java.net.URISyntaxException;
 @Slf4j
 public class ArgosClientImpl implements ArgosClient {
 
-  private URL apiUrlBase;
-  private RestTemplate restTemplate;
+	private URL apiUrlBase;
+	private RestTemplate restTemplate;
 
-  public ArgosClientImpl(URL apiUrlBase) {
-      this.apiUrlBase = apiUrlBase;
-      this.restTemplate = new RestTemplate();
-  }
+	public ArgosClientImpl(URL apiUrlBase) {
+			this.apiUrlBase = apiUrlBase;
+			this.restTemplate = new RestTemplate();
+	}
 
-  public DataTableData<ArgosDMPListing> listPlans(TableRequest request) throws MalformedURLException, URISyntaxException {
-    return restTemplate.exchange(
-        this.apiUrlBase + "/dmps?fieldsGroup=listing",
-        HttpMethod.POST,
-        new HttpEntity<>(request, getHttpHeaders()),
-        new ParameterizedTypeReference<ResponseItem<DataTableData<ArgosDMPListing>>>() {}
-    ).getBody().getPayload();
-  }
+	public DataTableData<ArgosDMPListing> listPlans(TableRequest request) throws MalformedURLException, URISyntaxException {
+		return restTemplate.exchange(
+				this.apiUrlBase + "/dmps?fieldsGroup=listing",
+				HttpMethod.POST,
+				new HttpEntity<>(request, getHttpHeaders()),
+				new ParameterizedTypeReference<ResponseItem<DataTableData<ArgosDMPListing>>>() {}
+		).getBody().getPayload();
+	}
 
-  public ArgosDMP getPlanById(String id) throws MalformedURLException, URISyntaxException {
-    return restTemplate.exchange(
-        this.apiUrlBase + "/dmps/" + id,
-        HttpMethod.GET,
-        new HttpEntity<>(getHttpHeaders()),
-        new ParameterizedTypeReference<ResponseItem<ArgosDMP>>() {}
-    ).getBody().getPayload();
-  }
+	public ArgosDMP getPlanById(String id) throws MalformedURLException, URISyntaxException {
+		return restTemplate.exchange(
+				this.apiUrlBase + "/dmps/" + id,
+				HttpMethod.GET,
+				new HttpEntity<>(getHttpHeaders()),
+				new ParameterizedTypeReference<ResponseItem<ArgosDMP>>() {}
+		).getBody().getPayload();
+	}
 
-  private HttpHeaders getHttpHeaders() {
-      HttpHeaders headers = new HttpHeaders();
-      headers.add("Content-Type", "application/json");
-      return headers;
-  }
+	private HttpHeaders getHttpHeaders() {
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Content-Type", "application/json");
+			return headers;
+	}
 
 }

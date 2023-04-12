@@ -7,14 +7,14 @@ import java.util.List;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TableRequest {
-  public Integer length;
-  public Integer offset;
-  public Criteria criteria;
+	public Integer length;
+	public Integer offset;
+	public Criteria criteria;
 
-  public TableRequest(Integer pageSize, Integer page, Criteria criteria) {
-    this.length = pageSize;
-    this.offset = pageSize * page;
-    this.criteria = criteria;
-  }
+	public TableRequest(Integer pageSize, Integer page, Criteria criteria) {
+		this.length = pageSize;
+		this.offset = pageSize * page;
+		this.criteria = criteria;
+	}
 
 }
