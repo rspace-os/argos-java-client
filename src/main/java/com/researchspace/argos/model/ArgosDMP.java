@@ -1,11 +1,18 @@
 package com.researchspace.argos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Optional;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+/*
+ * This class models Argos's definition of a DMP, that may be distinct from how
+ * other organisation define a DMP. This class only captures a subset of the
+ * data; that which has been determined to be useful for some application of
+ * this library. This class can and should be expanded where capturing
+ * additional data is required.
+ */
 @Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)

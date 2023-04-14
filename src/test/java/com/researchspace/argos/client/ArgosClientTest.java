@@ -1,30 +1,30 @@
 package com.researchspace.argos.client;
 
-import org.springframework.test.web.client.MockRestServiceServer;
-import org.springframework.web.client.RestTemplate;
-import com.researchspace.argos.model.DataTableData;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.researchspace.argos.client.ArgosClient;
-import com.researchspace.argos.model.ArgosDMPListing;
 import com.researchspace.argos.model.ArgosDMP;
-import com.researchspace.argos.model.TableRequest;
+import com.researchspace.argos.model.ArgosDMPListing;
 import com.researchspace.argos.model.Criteria;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.hamcrest.Matchers.containsString;
-import org.springframework.http.MediaType;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+import com.researchspace.argos.model.DataTableData;
+import com.researchspace.argos.model.TableRequest;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import java.io.IOException;
-import org.springframework.http.HttpMethod;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 class ArgosClientTest {
 
@@ -33,8 +33,8 @@ class ArgosClientTest {
 
 		@BeforeEach
 		public void startUp() throws MalformedURLException {
-				argosClientImpl = new ArgosClientImpl(new URL("https://devel.opendmp.eu/srv/api/public"));
-				mockServer = MockRestServiceServer.createServer(argosClientImpl.getRestTemplate());
+			argosClientImpl = new ArgosClientImpl(new URL("https://devel.opendmp.eu/srv/api/public"));
+			mockServer = MockRestServiceServer.createServer(argosClientImpl.getRestTemplate());
 		}
 
 		@AfterEach
@@ -43,9 +43,9 @@ class ArgosClientTest {
 
 		@Test
 		public void listPlansTest() throws IOException {
-				mockServer.expect(requestTo(containsString("public/dmps")))
-					.andExpect(method(HttpMethod.POST))
-								.andRespond(withSuccess("{\"payload\": {\"totalCount\": 1, \"data\": [ { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": \"00332/EI\", \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } ]}}", MediaType.APPLICATION_JSON));
+			mockServer.expect(requestTo(containsString("public/dmps")))
+				        .andExpect(method(HttpMethod.POST))
+				        .andRespond(withSuccess("{\"payload\": {\"totalCount\": 1, \"data\": [ { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": \"00332/EI\", \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } ]}}", MediaType.APPLICATION_JSON));
 				try {
 					TableRequest request = new TableRequest(10, 0, new Criteria(null, null, null, null));
 					DataTableData<ArgosDMPListing> list = argosClientImpl.listPlans(request);
@@ -59,8 +59,8 @@ class ArgosClientTest {
 		@Test
 		public void getPlanByIdTest() {
 				mockServer.expect(requestTo(containsString("public/dmps")))
-					.andExpect(method(HttpMethod.GET))
-								.andRespond(withSuccess("{\"payload\": { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": { \"id\": \"foo\", \"label\": \"00332/EI\" }, \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } }", MediaType.APPLICATION_JSON));
+					        .andExpect(method(HttpMethod.GET))
+					        .andRespond(withSuccess("{\"payload\": { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": { \"id\": \"foo\", \"label\": \"00332/EI\" }, \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } }", MediaType.APPLICATION_JSON));
 				try {
 					ArgosDMP plan = argosClientImpl.getPlanById("78f64f2d-8686-4dad-8d97-cb7763dbba27");
 					assertEquals(plan.label, "Dmp For Project : 00332/EI");

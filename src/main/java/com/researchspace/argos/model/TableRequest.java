@@ -1,9 +1,15 @@
 package com.researchspace.argos.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
 import java.util.List;
+import lombok.Data;
 
+/*
+ * Requests for listings of DMPs, require various pieces of data that specify
+ * which DMPs should be returned. This includes filters that constrain the set
+ * of DMPs based on their various properties and other values that provide
+ * support for pagination.
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TableRequest {
