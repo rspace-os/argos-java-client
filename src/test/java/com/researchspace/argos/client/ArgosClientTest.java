@@ -49,8 +49,8 @@ class ArgosClientTest {
 				try {
 					TableRequest request = new TableRequest(10, 0, new Criteria(null, null, null, null));
 					DataTableData<ArgosDMPListing> list = argosClientImpl.listPlans(request);
-					assertEquals(list.getData().size(), 1);
-					assertEquals(list.getData().get(0).label, "Dmp For Project : 00332/EI");
+					assertEquals(1, list.getData().size());
+					assertEquals("Dmp For Project : 00332/EI", list.getData().get(0).label);
 				} catch (MalformedURLException | URISyntaxException e) {
 					fail("argosClient.listPlans threw an exception.");
 				}
@@ -63,8 +63,8 @@ class ArgosClientTest {
 					        .andRespond(withSuccess("{\"payload\": { \"id\": \"78f64f2d-8686-4dad-8d97-cb7763dbba27\", \"label\": \"Dmp For Project : 00332/EI\", \"grant\": { \"id\": \"foo\", \"label\": \"00332/EI\" }, \"createdAt\": 1560252575000, \"modifiedAt\": 1560254599000 } }", MediaType.APPLICATION_JSON));
 				try {
 					ArgosDMP plan = argosClientImpl.getPlanById("78f64f2d-8686-4dad-8d97-cb7763dbba27");
-					assertEquals(plan.label, "Dmp For Project : 00332/EI");
-					assertEquals(plan.grant.label, "00332/EI");
+					assertEquals("Dmp For Project : 00332/EI", plan.label);
+					assertEquals("00332/EI", plan.grant.label);
 				} catch (MalformedURLException | URISyntaxException e) {
 					fail("argosClient.getPlanById threw an exception.");
 				}
